@@ -1,30 +1,30 @@
-
-// import { createStore } from "redux";
-
-// const reducer = (state=0, action) => {
-    
-//         if (action.type === 'AddCONTACTS') {
-//             return {contacts: [...state.contacts, 1] }
-//         }
-    
-//         if (action.type === 'DelateCONTACT') {
-//             return {contacts: state.contacts.pop()}
-//         }
-    
-    
-//     console.log(state, action)
-//     return state
-// };
-
-// export const store = createStore( reducer, {contacts: [1]} )
-// console.log(store.getState());
-
-// // store.dispatch({type: 'AddCONTACTS'})
-// store.dispatch({type: 'DelateCONTACT'})
-// console.log(store.getState());
-
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import { contactsReducer } from './contactsSlice';
+import { filterReducer } from './filterSlice';
 
 
-// const store = configureStore({reducer: rootReducer})
 
+export const store = configureStore({
+  reducer: {
+    contacts: contactsReducer,
+    filter: filterReducer,
+  },
+  devTools: true,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);

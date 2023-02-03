@@ -1,46 +1,55 @@
-import { useState, useEffect, Fragment } from 'react';
-import { nanoid } from 'nanoid';
+import { Fragment } from 'react';
+// import { nanoid } from 'nanoid';
 
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import s from './app.module.css';
+import { useSelector } from 'react-redux';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem('contacts')) ?? []
-  );
 
-  const [filter, setFilter] = useState('');
+  const contacts =useSelector(state=>state.contacts);
+  // const [contacts, setContacts] = useState(
+  //   () => JSON.parse(window.localStorage.getItem('contacts')) ?? []
+  // );
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // const [filter, setFilter] = useState('');
 
-  const handleAddContact = ({ name, number }) => {
-    setContacts([{ id: nanoid(), name: name.trim(), number }, ...contacts]);
-  };
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
-  const handleDeleteContact = id => {
-    setContacts(contacts.filter(contact => contact.id !== id));
-  };
+  // const handleAddContact = ({ name, number }) => {
+  //   setContacts([{ id: nanoid(), name: name.trim(), number }, ...contacts]);
+  // };
 
-  const handlerFilter = e => {
-    setFilter(e.target.value.trim().toLowerCase());
-  };
+  // const handleDeleteContact = id => {
+  //   setContacts(contacts.filter(contact => contact.id !== id));
+  // };
 
-  const findedContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter)
-  );
+  // const handlerFilter = e => {
+  //   setFilter(e.target.value.trim().toLowerCase());
+  // };
+
+  // const findedContacts = contacts.filter(contact =>
+  //   contact.name.toLowerCase().includes(filter)
+  // );
 
   return (
     <Fragment>
       <h1 className={s.container}>Phonebook</h1>
-      <ContactForm onSubmit={handleAddContact} addContact={contacts} />
+      <ContactForm 
+      // onSubmit={handleAddContact} addContact={contacts} 
+      />
 
       <h2 className={s.container}>Contacts</h2>
-      <Filter value={filter} onChange={handlerFilter} />
-      <ContactList contacts={findedContacts} onClick={handleDeleteContact} />
+      <Filter 
+      // value={filter} onChange={handlerFilter}
+       />
+     {!!contacts && <ContactList 
+      // contacts={findedContacts} onClick={handleDeleteContact} 
+      />} 
     </Fragment>
   );
 };
