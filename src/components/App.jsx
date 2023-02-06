@@ -8,51 +8,24 @@ import s from './app.module.css';
 import { useSelector } from 'react-redux';
 
 export const App = () => {
-
-  const contacts =useSelector(state=>state.contacts);
-  // const [contacts, setContacts] = useState(
-  //   () => JSON.parse(window.localStorage.getItem('contacts')) ?? []
-  // );
-
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(() => {
-  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
-
-  // const handleAddContact = ({ name, number }) => {
-  //   setContacts([{ id: nanoid(), name: name.trim(), number }, ...contacts]);
-  // };
-
-  // const handleDeleteContact = id => {
-  //   setContacts(contacts.filter(contact => contact.id !== id));
-  // };
-
-  // const handlerFilter = e => {
-  //   setFilter(e.target.value.trim().toLowerCase());
-  // };
-
-  // const findedContacts = contacts.filter(contact =>
-  //   contact.name.toLowerCase().includes(filter)
-  // );
+  const contacts = useSelector(state => state.contacts);
 
   return (
     <Fragment>
       <h1 className={s.container}>Phonebook</h1>
-      <ContactForm 
-      // onSubmit={handleAddContact} addContact={contacts} 
-      />
+      <ContactForm />
 
       <h2 className={s.container}>Contacts</h2>
-      <Filter 
-      // value={filter} onChange={handlerFilter}
-       />
-     {!!contacts && <ContactList 
-      // contacts={findedContacts} onClick={handleDeleteContact} 
-      />} 
+      <Filter />
+      {!!contacts && <ContactList />}
     </Fragment>
   );
 };
+
+
+
+
+
 
 // export const App = ()=> {
 //   state = {
